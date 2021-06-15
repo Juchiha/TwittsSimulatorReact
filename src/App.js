@@ -12,16 +12,26 @@ function App() {
   });
 
   const [allTweet, setAllTweet] = useState([]);
+  const [reloadTweets, setReloadTweets] = useState(false);
+
   useEffect(()=> {
     const allTweetWebStorage = localStorage.getItem(TWEET_STORAGE);
     const allTweetArray = JSON.parse(allTweetWebStorage);
     setAllTweet(allTweetArray); 
-  }, []);
+    setReloadTweets(false);
+  }, [reloadTweets]);
+
+  const delereTweet = index => {
+    allTweet.splice(index, 1);
+    setAllTweet(allTweet);
+    localStorage.setItem(TWEET_STORAGE, JSON.stringify(allTweet));
+    setReloadTweets(true);
+  }
   return (
     <Container className="tweets-simulator" max-width={false}>
       <Header/>
       <SendTwitter setToastState = {setToastState} allTweet = {allTweet} />
-      <ListTweets allTweet = {allTweet} />
+      <ListTweets allTweet = {allTweet} delereTweet= {delereTweet} />
       <Snackbar 
         anchorOrigin={{
           vertical:"top",

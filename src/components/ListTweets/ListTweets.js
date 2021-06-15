@@ -5,8 +5,8 @@ import Tweet from '../Tweet';
 import './ListTweets.scss';
 
 export default function ListTweets(props){
-    const {allTweet} = props;
-    if(!allTweet || allTweet.length == 0){
+    const {allTweet, delereTweet} = props;
+    if(!allTweet || allTweet.length === 0){
         return (
             <div className="list-tweets-empty">
                 <h2>No existen Tweets!</h2>
@@ -16,8 +16,8 @@ export default function ListTweets(props){
     return (
         <Grid container spacing={3} className="all-tweets">
             {allTweet.map((tweet, index) => (
-                <Grid key={index} item xs={4}>
-                    <Tweet tweet={tweet} index = {index}/>
+                <Grid key={index} item xs={3}>
+                    <Tweet tweet={tweet} index = {index} delereTweet={delereTweet}/>
                 </Grid>
             ))}
         </Grid>
